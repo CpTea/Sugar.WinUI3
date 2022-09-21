@@ -1,0 +1,34 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="using:Sugar.WinUI3.Components">
+
+    <Style TargetType="local:ProgressRingView">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ProgressRingView">
+                    <Grid
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Margin="{TemplateBinding Margin}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+                        <ProgressRing
+                            Width="{TemplateBinding RingWidth}"
+                            Height="{TemplateBinding RingHeight}"
+                            IsIndeterminate="False"
+                            Value="{TemplateBinding RingValue}" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="{ThemeResource TitleTextBlockFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{TemplateBinding RingValueText}"
+                            TextAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

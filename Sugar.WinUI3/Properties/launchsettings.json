@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Sugar.WinUI3 (Package)": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
+    },
+    "Sugar.WinUI3 (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

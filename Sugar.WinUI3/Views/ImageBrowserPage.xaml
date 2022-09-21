@@ -1,0 +1,112 @@
+﻿<Page
+    x:Class="Sugar.WinUI3.Views.ImageBrowserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="using:Sugar.WinUI3.Behaviors"
+    xmlns:cpn="using:Sugar.WinUI3.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:h="using:Sugar.WinUI3.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:search="using:Windows.Storage.Search"
+    b:NavigationViewHeaderBehavior.HeaderMode="Never"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <h:FileSortEnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ContentArea" Grid.Row="0">
+            <cpn:ImageView
+                x:Name="PART_ImageView"
+                Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparentBrush}"
+                FilePath="{x:Bind ViewModel.ImagePath, Mode=TwoWay}"
+                ItemsSource="{x:Bind ViewModel.ImageFiles, Mode=OneWay}"
+                SelectedIndex="{x:Bind ViewModel.FileIndex, Mode=TwoWay}" />
+            <cpn:ProgressRingView RingValue="{x:Bind ViewModel.ProgressRingValue, Mode=OneWay}" />
+        </Grid>
+        <CommandBar
+            Grid.Row="1"
+            DefaultLabelPosition="Right"
+            IsOpen="False">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="ImageBrowserPage_OpenFolderButton" Command="{x:Bind ViewModel.OpenFileCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe838;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="ImageBrowserPage_ProcesslImageButton" Command="{x:Bind ViewModel.ProcessImageCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe99a;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="ImageBrowserPage_ActualSizeButton" Command="{x:Bind ViewModel.ActualSizeCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe9a6;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="ImageBrowserPage_SortButton">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe8cb;" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByDefault"
+                                Command="{x:Bind ViewModel.SelectFileQueryOptionCommand}"
+                                CommandParameter="{x:Bind search:CommonFileQuery.DefaultQuery}"
+                                GroupName="FileSort"
+                                IsChecked="{x:Bind ViewModel.FileQuery, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=DefaultQuery, Mode=OneWay}" />
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByName"
+                                Command="{x:Bind ViewModel.SelectFileQueryOptionCommand}"
+                                CommandParameter="{x:Bind search:CommonFileQuery.OrderByName}"
+                                GroupName="FileSort"
+                                IsChecked="{x:Bind ViewModel.FileQuery, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=OrderByName, Mode=OneWay}" />
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByTitle"
+                                Command="{x:Bind ViewModel.SelectFileQueryOptionCommand}"
+                                CommandParameter="{x:Bind search:CommonFileQuery.OrderByTitle}"
+                                GroupName="FileSort"
+                                IsChecked="{x:Bind ViewModel.FileQuery, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=OrderByTitle, Mode=OneWay}" />
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByDate"
+                                Command="{x:Bind ViewModel.SelectFileQueryOptionCommand}"
+                                CommandParameter="{x:Bind search:CommonFileQuery.OrderByDate}"
+                                GroupName="FileSort"
+                                IsChecked="{x:Bind ViewModel.FileQuery, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=OrderByDate, Mode=OneWay}" />
+                            <MenuFlyoutSeparator />
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByIncrement"
+                                Command="{x:Bind ViewModel.SelectSortOrientationCommand}"
+                                CommandParameter="{x:Bind h:ValueBoxes.TrueBox}"
+                                GroupName="SortOrientation"
+                                IsChecked="{x:Bind ViewModel.SortOrientation.Equals(x:True)}" />
+                            <RadioMenuFlyoutItem
+                                x:Uid="ImageBrowserPage_OrderByDecrement"
+                                Command="{x:Bind ViewModel.SelectSortOrientationCommand}"
+                                CommandParameter="{x:Bind h:ValueBoxes.FalseBox}"
+                                GroupName="SortOrientation"
+                                IsChecked="{x:Bind ViewModel.SortOrientation.Equals(x:False)}" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Uid="ImageBrowserPage_SettingsButton">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xe713;" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="I" Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Grid>
+</Page>

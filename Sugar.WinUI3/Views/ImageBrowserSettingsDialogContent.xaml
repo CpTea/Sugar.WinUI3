@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="Sugar.WinUI3.Views.ImageBrowserSettingsDialogContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Sugar.WinUI3.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBox
+                x:Uid="ImageBrowser_SettingsDialogContent_SaveDirectoryName"
+                Margin="5"
+                Text="{x:Bind ViewModel.SaveDirectoryName, Mode=TwoWay}"
+                TextWrapping="Wrap" />
+            <TextBox
+                x:Uid="ImageBrowser_SettingsDialogContent_SaveFileName"
+                Margin="5"
+                Text="{x:Bind ViewModel.SaveFileNameWithoutExtension, Mode=TwoWay}"
+                TextWrapping="Wrap" />
+            <ComboBox
+                x:Uid="ImageBrowser_SettingsDialogContent_Network"
+                MinWidth="300"
+                Margin="5"
+                ItemsSource="{x:Bind ViewModel.Networks, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedNetwork, Mode=TwoWay}" />
+
+            <Grid
+                MinWidth="300"
+                MinHeight="110"
+                Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    x:Uid="ImageBrowser_SettingsDialogContent_UpscaleRatio"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    MinWidth="100"
+                    ItemsSource="{x:Bind ViewModel.UpscaleRatios, Mode=OneWay}"
+                    SelectedItem="{x:Bind ViewModel.SelectedUpscaleRatio, Mode=TwoWay}" />
+                <ComboBox
+                    x:Uid="ImageBrowser_SettingsDialogContent_ImageFormat"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    ItemsSource="{x:Bind ViewModel.ImageFormats, Mode=OneWay}"
+                    SelectedItem="{x:Bind ViewModel.SelectedImageFormat, Mode=TwoWay}" />
+                <CheckBox
+                    x:Uid="ImageBrowser_SettingsDialogContent_EnableTTA"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    IsChecked="{x:Bind ViewModel.EnableTTA, Mode=TwoWay}" />
+                <CheckBox
+                    x:Uid="ImageBrowser_SettingsDialogContent_EnableVerbose"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsChecked="{x:Bind ViewModel.EnableVerbose, Mode=TwoWay}" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
